@@ -1,19 +1,20 @@
-from timer import start_session, SessionType
-from display import print_clock
-from notificaiton import notify_break_end, notify_focus_time_end
-import time
+import click
+
+from pomodoro import PomodoroTimer
 
 
-SESSIONS_NUMBER = 1
-
-
-def run():
-    for i in range(SESSIONS_NUMBER):
-        notify_break_end()
-        start_session(SessionType.FOCUS, print_clock)
-        notify_focus_time_end()
-        start_session(SessionType.BREAK, print_clock)
-    time.sleep(10)
+@click.command()
+@click.option("--sessions", default=1, help="number of pomodoro sessions")
+@click.option("--focus_time", default=25, help="focus time")
+@click.option("--break_time", default=5, help="break time")
+def run(sessions, focus_time, break_time):
+    PomodoroTimer(
+        focus_time=focus_time,
+        break_time=break_time,
+        number_of_sessions=sessions,
+    ).start(
+        wait_after_last_session_in_seconds=10,
+    )
 
 
 if __name__ == "__main__":
