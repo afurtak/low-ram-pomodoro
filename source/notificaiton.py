@@ -1,10 +1,11 @@
 from enum import Enum
 from notifypy import Notify
+from config import Config, ConfigKey
 
 
 class NotificationType(Enum):
     FOCUS_TIME_END = ("Time to break", "You've just completed another focus sesssion")
-    BREAK_END = ("Time to focus", "")
+    BREAK_END = ("Time to focus", "It's time to work. Let's do some things!")
 
 
 def notify_break_end():
@@ -20,8 +21,11 @@ def _send_notification(type: NotificationType):
     _build_simple_notification(title=title, message=message).send()
 
 
-def _build_simple_notification(title: str, message: str):
+def _build_simple_notification(title: str, message: str, config: Config = Config()):
     notification = Notify()
     notification.title = title
     notification.message = message
+    notification.icon = config.get_value(ConfigKey.NOTIFICATION_ICON)
+    notification.application_name = config.get_value(ConfigKey.APPLICATION_NAME)
+    notification.audio = config.get_value(ConfigKey.NOTIFICATION_SOUND)
     return notification
