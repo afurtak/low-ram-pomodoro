@@ -1,0 +1,5 @@
+{
+    "application-name": "Low ram pomodoro timer",
+    "notification-sound": "assets/alarm.wav",
+    "notification-icon": "assets/notification-icon.png"
+}
