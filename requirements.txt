@@ -4,6 +4,8 @@
 #
 #    pip-compile requirements.in
 #
+click==8.0.3
+    # via -r requirements.in
 loguru==0.5.3
     # via notify-py
 notify-py==0.3.3
